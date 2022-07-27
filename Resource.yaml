@@ -5,7 +5,7 @@ Parameters:
   Keyname: 
     Description: Name of existing EC2 keypair to enable ssh access to the instances
     Type: 'AWS::EC2::KeyPair::KeyName'
-    Default: 'dev-team'
+    Default: 'devkey'
     ConstraintDescription: I have another  must be the name of an existing EC2 KeyPair
   InstanceType:
     Description: Webserver Ec2 instance Type
@@ -42,7 +42,7 @@ Resources:
       InstanceType: 't2.small'
       SecurityGroups: 
         - !Ref WebServerSecurityGroup
-      KeyName: 'dev-team'
+      KeyName: 'devkey'
   IPAddress:
       Type: AWS::EC2::EIP
   IPAssoc:
