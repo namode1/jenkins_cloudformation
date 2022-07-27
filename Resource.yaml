@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  Create a Wordpress installation on the LAMP stack using an EC2 instance
+Parameters:
+  Keyname: 
+    Description: Name of existing EC2 keypair to enable ssh access to the instances
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: I have another  must be the name of an existing EC2 KeyPair
+  InstanceType:
+    Description: Webserver Ec2 instance Type
+    Type: String
+    Default: t2.small
+    AllowedValues: 
+      - t1.micro
+      - t1.nano
+      - t2.micro
+      - t2.small
+      - t2.medium
+      - t2.large
+    ConstraintDescription: must be the valid EC2 instance type.
+
+Resources:
+  WebServerSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: >-
+        Enable http access via port http and ssh
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 0.0.0.0/0
+  WebServer:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: 'ami-0b6b8c039241775fa'
+      InstanceType: 't2.small'
+      SecurityGroups: 
+        - !Ref WebServerSecurityGroup
+      KeyName: devkey
+  IPAddress:
+      Type: AWS::EC2::EIP
+  IPAssoc:
+    Type: AWS::EC2::EIPAssociation
+    Properties:
+      EIP: !Ref IPAddress
+      InstanceId: !Ref WebServer
