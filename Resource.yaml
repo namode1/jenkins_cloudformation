@@ -4,7 +4,7 @@ Description: >-
 Parameters:
   Keyname: 
     Description: Name of existing EC2 keypair to enable ssh access to the instances
-    Type: AWS::EC2::KeyPair::KeyName
+    Type: 'AWS::EC2::KeyPair::KeyName'
     ConstraintDescription: I have another  must be the name of an existing EC2 KeyPair
   InstanceType:
     Description: Webserver Ec2 instance Type
