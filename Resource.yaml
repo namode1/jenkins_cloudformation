@@ -41,7 +41,7 @@ Resources:
       InstanceType: 't2.small'
       SecurityGroups: 
         - !Ref WebServerSecurityGroup
-      KeyName: devkey
+      KeyName: 'devkey'
   IPAddress:
       Type: AWS::EC2::EIP
   IPAssoc:
