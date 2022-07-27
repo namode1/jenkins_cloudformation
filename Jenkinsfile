@@ -1,11 +1,14 @@
+@Library('github.com/releaseworks/jenkinslib') _
+
 pipeline {
-  agent any
-    stages {
-        stage('Submit Stack') {
-            steps { 
-            sh "aws cloudformation create-stack --stack-name teststack --template-body file://Resources.yaml --region 'us-east-1"
-                
-            }
-        }
-    }
+    agent any
+    stages {
+        stage('Submit Stack') {
+            steps { 
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+        AWS("cloudformation create-stack --stack-name teststack01 --template-body file://Resource.yaml --region 'us-east-1'")
+            }
+        }
+    }
+}
 }
