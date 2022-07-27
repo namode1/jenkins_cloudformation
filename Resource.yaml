@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: >-
   Create a Wordpress installation on the LAMP stack using an EC2 instance
 Parameters:
-    Keyname: 
+  Keyname: 
     Description: Name of existing EC2 keypair to enable ssh access to the instances
     Type: AWS::EC2::KeyPair::KeyName
     ConstraintDescription: I have another  must be the name of an existing EC2 KeyPair
